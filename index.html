@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,352 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Swiper JS for horizontal screenshots -->
+    <!-- Swiper JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #0a0f1e 0%, #0a0a1a 100%);
-            color: #fff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1e1a3a;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            border-radius: 10px;
-        }
-
-        /* Loading Overlay */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0a0f1e;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s;
-        }
-        .loader {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255,75,43,0.2);
-            border-top: 4px solid #ff4b2b;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Header */
-        .header {
-            background: rgba(10, 15, 30, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,75,43,0.3);
-        }
-        .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .logo h1 {
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .download-btn-header {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            padding: 0.8rem 1.8rem;
-            border-radius: 50px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .download-btn-header:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255,75,43,0.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: radial-gradient(circle at 30% 10%, rgba(255,75,43,0.15), transparent);
-        }
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff, #ff4b2b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: #ccc;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* App Description Card */
-        .app-description {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            border: 1px solid rgba(255,75,43,0.2);
-        }
-        .app-description h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            border-right: 4px solid #ff4b2b;
-            padding-right: 1rem;
-        }
-        .description-text {
-            white-space: pre-line;
-            line-height: 1.8;
-            color: #e0e0e0;
-        }
-
-        /* Features Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        .feature-card {
-            background: rgba(255,255,255,0.03);
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
-            transition: transform 0.3s, background 0.3s;
-            border: 1px solid rgba(255,75,43,0.1);
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255,75,43,0.1);
-            border-color: #ff4b2b;
-        }
-        .feature-card i {
-            font-size: 3rem;
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-        }
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Screenshots Horizontal Section */
-        .screenshots-section {
-            margin: 4rem 0;
-        }
-        .screenshots-section h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-        .swiper {
-            width: 100%;
-            padding: 1rem 0;
-        }
-        .swiper-slide {
-            text-align: center;
-            background: transparent;
-        }
-        .swiper-slide img {
-            width: 100%;
-            max-width: 320px;
-            height: auto;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border: 2px solid rgba(255,75,43,0.3);
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-        .swiper-slide img:hover {
-            transform: scale(1.02);
-        }
-
-        /* Packages Section */
-        .packages {
-            margin: 4rem 0;
-        }
-        .packages h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-        .packages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .package-card {
-            background: linear-gradient(145deg, rgba(20,25,45,0.9), rgba(10,15,30,0.9));
-            border-radius: 25px;
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(255,75,43,0.2);
-        }
-        .package-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(255,75,43,0.2);
-            border-color: #ff4b2b;
-        }
-        .package-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #ff4b2b;
-        }
-        .package-duration {
-            font-size: 1rem;
-            color: #aaa;
-            margin-bottom: 1rem;
-        }
-        .package-prices {
-            background: rgba(0,0,0,0.5);
-            border-radius: 15px;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-        .price-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .price-item:last-child {
-            border-bottom: none;
-        }
-        .price-label {
-            font-weight: bold;
-        }
-        .price-value {
-            color: #ff4b2b;
-            font-weight: bold;
-        }
-        .kunz {
-            font-size: 1.3rem;
-            margin: 1rem 0;
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            padding: 0.5rem;
-            border-radius: 50px;
-            font-weight: bold;
-        }
-
-        /* Social Links */
-        .social-links {
-            background: rgba(255,255,255,0.03);
-            border-radius: 30px;
-            padding: 2rem;
-            margin: 3rem 0;
-            text-align: center;
-        }
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.8rem 1.8rem;
-            border-radius: 50px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            transition: transform 0.3s;
-            background: rgba(255,255,255,0.1);
-        }
-        .social-btn:hover {
-            transform: translateY(-3px);
-            background: #ff4b2b;
-        }
-        .whatsapp { background: #25D366; }
-        .telegram { background: #0088cc; }
-        .whatsapp-channel { background: #25D366; }
-        .telegram-channel { background: #0088cc; }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid rgba(255,75,43,0.2);
-            margin-top: 3rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .container { padding: 1rem; }
-            .header-container { flex-direction: column; }
-            .packages-grid { grid-template-columns: 1fr; }
-        }
-
-        /* Error Message */
-        .error-message {
-            background: rgba(255,75,43,0.2);
-            border: 1px solid #ff4b2b;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            margin: 2rem 0;
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -366,34 +25,42 @@
         <div class="logo">
             <h1><i class="fas fa-tv"></i> THABIT TV</h1>
         </div>
-        <a href="#" class="download-btn-header" id="downloadBtnHeader">
+        <button class="scroll-down-btn" id="scrollDownBtn">
             <i class="fas fa-download"></i> تحميل التطبيق
-        </a>
+        </button>
     </div>
 </header>
 
-<section class="hero">
-    <h1>عالم الترفيه بين يديك</h1>
-    <p>استمتع بتجربة مشاهدة متكاملة تجمع كل ما تبحث عنه في مكان واحد</p>
-</section>
-
 <main class="container" id="mainContent">
-    <!-- App Description will be injected here -->
-    <div id="appDescription"></div>
+    <!-- App Header Section like Google Play -->
+    <div class="app-header" id="appHeader"></div>
+
+    <!-- Screenshots Horizontal Section with Swiper -->
+    <div class="screenshots-section" id="screenshotsSection" style="display: none;">
+        <h2><i class="fas fa-images"></i> معرض الصور</h2>
+        <div class="swiper screenshots-swiper" id="screenshotsSwiper">
+            <div class="swiper-wrapper" id="screenshotsWrapper"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal">
+        <span class="close-lightbox">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-controls">
+                <button class="lightbox-prev"><i class="fas fa-chevron-right"></i></button>
+                <button class="lightbox-next"><i class="fas fa-chevron-left"></i></button>
+            </div>
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
 
     <!-- Features Grid -->
     <div class="features-grid" id="featuresGrid"></div>
-
-    <!-- Screenshots Horizontal Section -->
-    <div class="screenshots-section" id="screenshotsSection" style="display: none;">
-        <h2><i class="fas fa-images"></i> معرض الصور</h2>
-        <div class="swiper" id="screenshotsSwiper">
-            <div class="swiper-wrapper" id="screenshotsWrapper"></div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-    </div>
 
     <!-- Packages Section -->
     <div class="packages" id="packagesSection">
@@ -401,10 +68,95 @@
         <div class="packages-grid" id="packagesGrid"></div>
     </div>
 
-    <!-- Social Links -->
-    <div class="social-links" id="socialLinks">
-        <h3><i class="fas fa-headset"></i> تواصل معنا</h3>
-        <div class="social-icons" id="socialIcons"></div>
+    <!-- Payment Methods Section -->
+    <div class="payment-methods">
+        <h2><i class="fas fa-credit-card"></i> طرق الدفع</h2>
+        <div class="payment-grid">
+            <div class="payment-card">
+                <div class="payment-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>خدمة أم فلوس</h3>
+                <p>خدمة حاسب - الدفع عبر خدمة أم فلوس</p>
+                <div class="payment-number">
+                    <i class="fas fa-phone-alt"></i>
+                    <span class="service-number">1018 976</span>
+                    <button class="copy-btn" data-copy="1018 976">
+                        <i class="far fa-copy"></i> نسخ
+                    </button>
+                </div>
+                <small>يمكنك الدفع عبر خدمة أم فلوس بسهولة</small>
+            </div>
+
+            <div class="payment-card">
+                <div class="payment-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h3>بنك الكريمي</h3>
+                <p>تحويل بنكي مباشر</p>
+                <div class="account-info">
+                    <div class="info-row">
+                        <span class="info-label">اسم الحساب:</span>
+                        <span class="info-value">ثابت محمد راشد الذعمري</span>
+                        <button class="copy-btn" data-copy="ثابت محمد راشد الذعمري">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">رقم الحساب:</span>
+                        <span class="info-value">3003074403</span>
+                        <button class="copy-btn" data-copy="3003074403">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <small>الدفع عبر بنك الكريمي - اليمن</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Communication Section -->
+    <div class="social-communication">
+        <h2><i class="fas fa-comments"></i> تواصل معنا عبر الخاص</h2>
+        <div class="social-icons-horizontal">
+            <a href="#" class="social-icon-small" id="whatsappLink">
+                <i class="fab fa-whatsapp"></i>
+                <span>واتساب</span>
+            </a>
+            <a href="#" class="social-icon-small" id="telegramLink">
+                <i class="fab fa-telegram"></i>
+                <span>تليجرام</span>
+            </a>
+            <a href="#" class="social-icon-small" id="emailLink">
+                <i class="fas fa-envelope"></i>
+                <span>البريد</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Follow Us Section -->
+    <div class="follow-us">
+        <h2><i class="fas fa-rss"></i> تابع قنواتنا</h2>
+        <div class="follow-icons">
+            <a href="https://whatsapp.com/channel/0029Vb7nsCr8vd1NWfCecB3a" class="follow-btn whatsapp-channel" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>قناة واتساب</span>
+            </a>
+            <a href="https://t.me/thabit_tv" class="follow-btn telegram-channel" target="_blank">
+                <i class="fab fa-telegram"></i>
+                <span>قناة تليجرام</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Real Download Button at Bottom -->
+    <div class="download-section" id="downloadSection">
+        <h2><i class="fas fa-download"></i> حمل التطبيق الآن</h2>
+        <a href="#" class="real-download-btn" id="realDownloadBtn">
+            <i class="fas fa-download"></i> تحميل تطبيق THABIT TV
+            <span>إصدار V4.0</span>
+        </a>
+        <p class="download-note">حجم التطبيق: 22 ميجابايت | متوافق مع جميع أجهزة الأندرويد</p>
     </div>
 </main>
 
@@ -413,274 +165,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script type="module">
-    // Import Firebase SDKs
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-    
-    // Firebase configuration from user
-    const firebaseConfig = {
-        apiKey: "AIzaSyAEHTBBLpnzNKSPFWQrNinb8pWrA2DEtos",
-        authDomain: "thabit-tv-81b69.firebaseapp.com",
-        databaseURL: "https://thabit-tv-81b69-default-rtdb.firebaseio.com",
-        projectId: "thabit-tv-81b69",
-        storageBucket: "thabit-tv-81b69.firebasestorage.app",
-        messagingSenderId: "604115208639",
-        appId: "1:604115208639:web:608d512cc4ab41d017790a",
-        measurementId: "G-LQCR558K90"
-    };
-    
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    
-    const APK_DOWNLOAD_URL = "https://github.com/thabitalgodai/appapk/releases/download/v4.0/THABIT_TV.apk";
-    
-    // Helper function to extract features from description
-    function extractFeatures(description) {
-        const features = [];
-        if (description && description.includes('قنوات رياضية')) {
-            features.push({ icon: 'fas fa-futbol', title: 'قنوات رياضية', desc: 'مباشرة بأفضل جودة' });
-        }
-        if (description && description.includes('أفلام ومسلسلات')) {
-            features.push({ icon: 'fas fa-film', title: 'أفلام ومسلسلات', desc: 'متنوعة ومحدثة باستمرار' });
-        }
-        if (description && description.includes('قنوات أطفال')) {
-            features.push({ icon: 'fas fa-child', title: 'قنوات أطفال', desc: 'ترفيه وتعليم' });
-        }
-        if (description && description.includes('مشغل قوي')) {
-            features.push({ icon: 'fas fa-play-circle', title: 'مشغل احترافي', desc: 'جميع الجودات بدون تقطيع' });
-        }
-        if (description && description.includes('الدردشة')) {
-            features.push({ icon: 'fas fa-comments', title: 'تفاعل مباشر', desc: 'دردشة أثناء البث' });
-        }
-        if (description && description.includes('كونز')) {
-            features.push({ icon: 'fas fa-coins', title: 'نظام المكافآت', desc: '10 كونز يومياً' });
-        }
-        if (description && description.includes('دعم متواصل')) {
-            features.push({ icon: 'fas fa-headset', title: 'دعم فني', desc: 'خدمة العملاء 24/7' });
-        }
-        
-        // Default features if none found
-        if (features.length === 0) {
-            features.push(
-                { icon: 'fas fa-tv', title: 'مشاهدة ممتعة', desc: 'جودة عالية وتجربة سلسة' },
-                { icon: 'fas fa-gift', title: 'مكافآت يومية', desc: 'احصل على كونز يومياً' },
-                { icon: 'fas fa-headset', title: 'دعم فني', desc: 'خدمة عملاء 24/7' }
-            );
-        }
-        return features;
-    }
-    
-    // Load App Data from Firebase (data_app)
-    async function loadAppData() {
-        try {
-            const appDataRef = ref(db, 'data_app');
-            const snapshot = await get(appDataRef);
-            
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                // Get the first key in data_app
-                const firstKey = Object.keys(data)[0];
-                const appInfo = data[firstKey];
-                
-                if (appInfo) {
-                    // Get description (dec or new field)
-                    const descText = appInfo.dec || appInfo.new || "THABIT TV — عالم الترفيه بين يديك\n\nاستمتع بتجربة مشاهدة متكاملة تجمع كل ما تبحث عنه في مكان واحد.";
-                    
-                    // Display description
-                    const descriptionDiv = document.getElementById('appDescription');
-                    descriptionDiv.innerHTML = `
-                        <div class="app-description">
-                            <h2><i class="fas fa-info-circle"></i> عن التطبيق</h2>
-                            <div class="description-text">${descText.replace(/\n/g, '<br>')}</div>
-                        </div>
-                    `;
-                    
-                    // Extract and display features
-                    const features = extractFeatures(descText);
-                    const featuresGrid = document.getElementById('featuresGrid');
-                    featuresGrid.innerHTML = features.map(f => `
-                        <div class="feature-card">
-                            <i class="${f.icon}"></i>
-                            <h3>${f.title}</h3>
-                            <p>${f.desc}</p>
-                        </div>
-                    `).join('');
-                    
-                    // Load screenshots (sc1, sc2, sc3)
-                    const screenshots = [appInfo.sc1, appInfo.sc2, appInfo.sc3].filter(s => s && s.trim() !== "" && s !== "content://");
-                    if (screenshots.length > 0) {
-                        const screenshotsSection = document.getElementById('screenshotsSection');
-                        screenshotsSection.style.display = 'block';
-                        const wrapper = document.getElementById('screenshotsWrapper');
-                        wrapper.innerHTML = screenshots.map(src => `
-                            <div class="swiper-slide">
-                                <img src="${src}" alt="تطبيق THABIT TV" loading="lazy" onerror="this.src='https://via.placeholder.com/300x500?text=THABIT+TV'">
-                            </div>
-                        `).join('');
-                        
-                        // Initialize Swiper
-                        new Swiper('#screenshotsSwiper', {
-                            slidesPerView: 1,
-                            spaceBetween: 20,
-                            loop: screenshots.length > 1,
-                            pagination: { el: '.swiper-pagination', clickable: true },
-                            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-                            breakpoints: {
-                                640: { slidesPerView: 2 },
-                                1024: { slidesPerView: 3 }
-                            }
-                        });
-                    }
-                    
-                    // Extract social links from description
-                    let whatsappLink = "https://wa.me/736091318";
-                    let telegramLink = "https://t.me/thabitalgodai";
-                    let whatsappChannel = "https://whatsapp.com/channel/0029Vb7nsCr8vd1NWfCecB3a";
-                    let telegramChannel = "https://t.me/thabit_tv";
-                    
-                    if (descText.includes('wa.me')) {
-                        const waMatch = descText.match(/https:\/\/wa\.me\/\d+/);
-                        if (waMatch) whatsappLink = waMatch[0];
-                    }
-                    if (descText.includes('t.me/thabitalgodai')) {
-                        const tgMatch = descText.match(/https:\/\/t\.me\/thabitalgodai/);
-                        if (tgMatch) telegramLink = tgMatch[0];
-                    }
-                    if (descText.includes('whatsapp.com/channel')) {
-                        const waChannelMatch = descText.match(/https:\/\/whatsapp\.com\/channel\/[^\s]+/);
-                        if (waChannelMatch) whatsappChannel = waChannelMatch[0];
-                    }
-                    if (descText.includes('t.me/thabit_tv')) {
-                        const tgChannelMatch = descText.match(/https:\/\/t\.me\/thabit_tv/);
-                        if (tgChannelMatch) telegramChannel = tgChannelMatch[0];
-                    }
-                    
-                    const socialDiv = document.getElementById('socialIcons');
-                    socialDiv.innerHTML = `
-                        <a href="${whatsappLink}" class="social-btn whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> واتساب (دعم)</a>
-                        <a href="${telegramLink}" class="social-btn telegram" target="_blank"><i class="fab fa-telegram"></i> تليجرام (دعم)</a>
-                        <a href="${whatsappChannel}" class="social-btn whatsapp-channel" target="_blank"><i class="fab fa-whatsapp"></i> قناة واتساب</a>
-                        <a href="${telegramChannel}" class="social-btn telegram-channel" target="_blank"><i class="fab fa-telegram"></i> قناة تليجرام</a>
-                    `;
-                }
-            } else {
-                // Fallback content if no data
-                document.getElementById('appDescription').innerHTML = `
-                    <div class="app-description">
-                        <h2>THABIT TV</h2>
-                        <p>تطبيق مميز لمشاهدة القنوات الرياضية والأفلام والمسلسلات.</p>
-                    </div>
-                `;
-            }
-        } catch (error) {
-            console.error("Error loading app data:", error);
-            document.getElementById('appDescription').innerHTML = `
-                <div class="error-message">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <p>حدث خطأ في تحميل البيانات. يرجى المحاولة لاحقاً.</p>
-                </div>
-            `;
-        }
-    }
-    
-    // Load Packages from Firebase (packages)
-    async function loadPackages() {
-        try {
-            const packagesRef = ref(db, 'packages');
-            const snapshot = await get(packagesRef);
-            
-            if (snapshot.exists()) {
-                const packagesData = snapshot.val();
-                const packagesArray = Object.values(packagesData).filter(pkg => pkg.active !== false);
-                packagesArray.sort((a, b) => (a.order || 999) - (b.order || 999));
-                
-                const packagesGrid = document.getElementById('packagesGrid');
-                if (packagesArray.length === 0) {
-                    packagesGrid.innerHTML = '<p style="text-align:center;">لا توجد باقات متاحة حالياً</p>';
-                    return;
-                }
-                
-                packagesGrid.innerHTML = packagesArray.map(pkg => {
-                    let durationText = "";
-                    if (pkg.type === "DAY") {
-                        durationText = "يوم واحد";
-                    } else if (pkg.type === "MONTH") {
-                        durationText = pkg.Subscription_duration === "6" ? "6 أشهر" : "شهر واحد";
-                    } else if (pkg.type === "YEAR") {
-                        durationText = "سنة كاملة";
-                    } else {
-                        durationText = pkg.Subscription_duration + " " + (pkg.Subscription_duration === "1" ? "يوم" : "أيام");
-                    }
-                    
-                    // Parse prices
-                    let northPrice = pkg.price_north || "غير محدد";
-                    let southPrice = pkg.price_south || "غير محدد";
-                    
-                    return `
-                        <div class="package-card">
-                            <h3>${pkg.title || "باقة اشتراك"}</h3>
-                            <div class="package-duration"><i class="far fa-calendar-alt"></i> المدة: ${durationText}</div>
-                            <div class="package-prices">
-                                <div class="price-item">
-                                    <span class="price-label"><i class="fas fa-map-marker-alt"></i> شمال اليمن:</span>
-                                    <span class="price-value">${southPrice} ريال</span>
-                                </div>
-                                <div class="price-item">
-                                    <span class="price-label"><i class="fas fa-map-marker-alt"></i> جنوب اليمن:</span>
-                                    <span class="price-value">${northPrice} ريال</span>
-                                </div>
-                            </div>
-                            <div class="kunz"><i class="fas fa-coins"></i> ${pkg.Kunz || "0"} كونز</div>
-                            <p style="margin-top: 1rem; font-size: 0.9rem; color: #aaa;">${pkg.description || "باقة مميزة تناسب احتياجاتك"}</p>
-                        </div>
-                    `;
-                }).join('');
-            } else {
-                document.getElementById('packagesGrid').innerHTML = '<p style="text-align:center;">لا توجد باقات متاحة حالياً</p>';
-            }
-        } catch (error) {
-            console.error("Error loading packages:", error);
-            document.getElementById('packagesGrid').innerHTML = `
-                <div class="error-message">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <p>حدث خطأ في تحميل الباقات</p>
-                </div>
-            `;
-        }
-    }
-    
-    // Set download buttons
-    function setupDownloadButtons() {
-        const downloadBtn = document.getElementById('downloadBtnHeader');
-        if (downloadBtn) {
-            downloadBtn.href = APK_DOWNLOAD_URL;
-            downloadBtn.setAttribute('download', '');
-        }
-    }
-    
-    // Hide loading overlay
-    function hideLoading() {
-        const overlay = document.getElementById('loadingOverlay');
-        setTimeout(() => {
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 500);
-        }, 1000);
-    }
-    
-    // Initialize all
-    async function init() {
-        await loadAppData();
-        await loadPackages();
-        setupDownloadButtons();
-        hideLoading();
-    }
-    
-    // Start the app
-    init();
-</script>
+<script type="module" src="script.js"></script>
 </body>
 </html>
